@@ -40,6 +40,31 @@ def es_anagrama(a:str, b:str) -> bool:
     for ch in b_min:
         if not ch.isspace():
             temp_b.append(ch)
-    b = "".join(temp_b)         
+    b = "".join(temp_b)
 
-result = es_anagrama("Amor", "Roma")
+    if len(a) != len(b):
+        return False
+    
+    conteo = {}
+    for ch in a:
+        conteo[ch] = conteo.get(ch, 0) + 1  # se suman cuantas letras hay (clave(letra), 0(cuantas hay))
+    
+    for ch in b:
+        if ch not in conteo:
+            return False
+        conteo[ch] -= 1
+        # if conteo[ch] < 0:
+        #     return False
+        
+    for ch in conteo.values():
+        if ch != 0:
+            return False
+    
+    return True
+
+result = es_anagrama("Aamor", "Romaaa")
+
+if result:
+    print("Son anagramas")
+else:
+    print("No son anagramas")
